@@ -1,3 +1,5 @@
+import { Category } from 'src/categories/entities/category.entity';
+import { Pocket } from 'src/pockets/entities/pocket.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
@@ -24,4 +26,16 @@ export class Transaction {
 
   @ManyToOne(() => User, (user) => user.transactions, { onDelete: 'CASCADE' })
   user: User;
+
+  @ManyToOne(() => Category, (category) => category.transactions, {
+    nullable: false,
+    onDelete: 'SET NULL',
+  })
+  category: Category;
+
+  @ManyToOne(() => Pocket, (pocket) => pocket.transactions, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  pocket: Pocket;
 }

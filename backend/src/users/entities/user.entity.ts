@@ -1,4 +1,5 @@
 import { Transaction } from 'src/transactions/entities/transaction.entity';
+import { Report } from 'src/reports/entities/report.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +9,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Category } from 'src/categories/entities/category.entity';
+import { Pocket } from 'src/pockets/entities/pocket.entity';
 
 @Entity()
 export class User {
@@ -39,4 +42,13 @@ export class User {
     cascade: true,
   })
   transactions: Transaction[];
+
+  @OneToMany(() => Report, (report) => report.user, { cascade: true })
+  reports: Report[];
+
+  @OneToMany(() => Category, (category) => category.user, { cascade: true })
+  categories: Category[];
+
+  @OneToMany(() => Pocket, (pocket) => pocket.user, { cascade: true })
+  pockets: Pocket[];
 }
